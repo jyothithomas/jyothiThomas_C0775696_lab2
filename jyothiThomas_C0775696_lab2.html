@@ -11,7 +11,7 @@
 <br>
 <br>
 
-<button id="b1" onclick="generateTable()" onclick="clear()">Generate Table</button>
+<button id="b1" onclick="clear()">Generate Table</button>
 <br>
 <br>
 
@@ -21,26 +21,27 @@
 
 <script language="javascript">
 
-		//Your code goes here
+		//My Code
 
     //add table function
-	function generateTable(rows, columns){
-  var table = document.createElement('table');
+	function generateTable(rows, columns) {
+            var table = document.createElement('table');
+            table.style.border = "1px solid green";
+            table.id = "myTable";
+            for (var x = 0; x < rows; x++) {
+                var tr = document.createElement('tr');
 
-  for(var x = 0; x < rows; x++){
-    var tr = document.createElement('tr');
+                for (var y = 0; y < columns; y++) {
+                    var td = document.createElement('td');
+                    td.innerHTML = 'row' + '[' + x + ']' + 'col' + '[' + y + ']';
+                    tr.appendChild(td);
+                }
 
-    for(var y = 0; y < columns; y++){
-      var td = document.createElement('td');
-      td.innerHTML = 'row' + '['+ x +']' + 'col' +'['+ y + ']';
-      tr.appendChild(td);
-    }
+                table.appendChild(tr);
+            }
 
-    table.appendChild(tr);
-  }
-
-  document.body.appendChild(table);
-    }
+            document.body.appendChild(table);
+        }
 
     //hide button function
     function clear() {
@@ -66,10 +67,27 @@ var button = document.getElementById('b1').addEventListener('click', function(){
     var button2 = document.getElementById('b2').addEventListener('click', function () {
         addColumn();
     })
-function addRow() {
-  var row = document.getElementById("myRow");
-  var x = row.insertCell(0);
-  x.innerHTML = "New cell";
+
+		function addRow() {
+    var tbl = document.getElementById("myTable"), 
+        row = tbl.insertRow(tbl.rows.length),     
+i;
+    
+    for (i = 0; i < tbl.rows[0].cells.length; i++) {
+        addCellText(row.insertCell(i), "row");
+    }
+}
+function addCellText(cell, text) {
+        txt = document.createTextNode(text); 
+        cell.appendChild(txt);                                       
+        }
+function addColumn() {
+    var tbl = document.getElementById("myTable"), 
+        i;
+    
+    for (i = 0; i < tbl.rows.length; i++) {
+        addCellText(tbl.rows[i].insertCell(tbl.rows[i].cells.length), "col");
+    }
 }
 </script>
 
